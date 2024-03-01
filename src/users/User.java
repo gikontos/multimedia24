@@ -32,12 +32,22 @@ public class User {
         this.borrowedBooks = borrowedBooks;
     }
 
-    public void addBorrowedBook() {
-        this.borrowedBooks++;
+    public boolean addBorrowedBook() {
+        if (this.borrowedBooks < 2) {
+            this.borrowedBooks++;
+            return true;
+        } else {
+            System.out.println("Ο χρήστης δεν δικαιούται δανεισμό");
+            return false;
+        }
     }
 
     public void returnBorrowedBook() {
-        this.borrowedBooks--;
+        if (this.borrowedBooks > 0) {
+            this.borrowedBooks--;
+        } else {
+            System.out.println("Δεν Υπάρχει δανεισμός στο όνομα του χρήστη");
+        }
     }
 
     // functions to retun the needed info

@@ -56,6 +56,18 @@ public class Book implements Serializable {
     }
     // functions to return the needed information
 
+    public String getTitle() {
+        return this.title;
+    }
+
+    public String getAuthor() {
+        return this.author;
+    }
+
+    public int getPublicationYear() {
+        return this.publicationYear;
+    }
+
     public String viewInfo() {
         return "Book Info:\n" +
                 "Title: " + title + "\n" +

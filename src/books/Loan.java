@@ -17,6 +17,14 @@ public class Loan {
         this.returned = false;
     }
 
+    public Book getBook() {
+        return this.book;
+    }
+
+    public User getUser() {
+        return this.user;
+    }
+
     public void returnBook() {
         this.returned = true;
     }

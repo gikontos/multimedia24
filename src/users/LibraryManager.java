@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import src.books.Book;
 import src.books.Category;
+import src.books.Comment;
 import src.books.Loan;
 
 public class LibraryManager {
@@ -97,16 +98,59 @@ public class LibraryManager {
     }
 
     public void addLoan(Book book, User user) {
-        Loan loan = new Loan(book, user);
-        loans.add(loan);
+        if (user.addBorrowedBook()) {
+            Loan loan = new Loan(book, user);
+            loans.add(loan);
+        }
     }
 
     public void terminateLoan(Loan loan) {
+        User user = loan.getUser();
         loan.returnBook();
+        user.returnBorrowedBook();
         if (loans != null) {
             loans.remove(loan);
         }
     }
 
-    // Additional methods as needed
+    // Methods for users
+    public void userAddRating(Book book, int r) {
+        if (r >= 1 && r <= 5) {
+            book.addRating(r);
+        } else {
+            System.out.println("Η βαθμολογία πρέπει να είναι από 1 έως 5.");
+        }
+    }
+
+    public void userAddComment(Book book, String c) {
+        Comment comment = new Comment(c);
+        book.addComment(comment);
+    }
+
+    public List<Book> searchBooks(String title, String author, int publicationYear) {
+        List<Book> result = new ArrayList<>();
+
+        for (Book book : books) {
+            boolean matches = true;
+
+            if (title != null && !title.isEmpty()) {
+                matches = matches && book.getTitle().toLowerCase().contains(title.toLowerCase());
+            }
+
+            if (author != null && !author.isEmpty()) {
+                matches = matches && book.getAuthor().toLowerCase().contains(author.toLowerCase());
+            }
+
+            if (publicationYear > 0) {
+                matches = matches && book.getPublicationYear() == publicationYear;
+            }
+
+            if (matches) {
+                result.add(book);
+            }
+        }
+
+        return result;
+    }
+
 }
