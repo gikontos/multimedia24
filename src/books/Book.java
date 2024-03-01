@@ -43,6 +43,22 @@ public class Book implements Serializable {
         this.numberOfCopies = numberOfCopies;
     }
 
+    public boolean canloanBook() {
+        if (this.numberOfCopies > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void loanedBook() {
+        this.numberOfCopies--;
+    }
+
+    public void returnBorrowedBook() {
+        this.numberOfCopies++;
+    }
+
     public void addRating(int r) {
         this.rating = ((this.rating * this.numberOfRatings) + r) / (this.numberOfRatings + 1);
         this.numberOfRatings++;

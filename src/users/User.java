@@ -1,5 +1,10 @@
 package src.users;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import src.books.Book;
+
 public class User {
     private String username;
     private String password;
@@ -8,6 +13,7 @@ public class User {
     private String idNumber;
     private String email;
     private int borrowedBooks;
+    private List<Book> loans;
 
     public User(String username, String password, String firstName, String lastName, String idNumber, String email) {
         this.username = username;
@@ -17,6 +23,7 @@ public class User {
         this.idNumber = idNumber;
         this.email = email;
         this.borrowedBooks = 0;
+        this.loans = new ArrayList<>();
     }
 
     // voids to change the info
@@ -32,14 +39,22 @@ public class User {
         this.borrowedBooks = borrowedBooks;
     }
 
-    public boolean addBorrowedBook() {
+    public boolean canBorrowBook() {
         if (this.borrowedBooks < 2) {
-            this.borrowedBooks++;
             return true;
         } else {
             System.out.println("Ο χρήστης δεν δικαιούται δανεισμό");
             return false;
         }
+    }
+
+    public void Borrowed(Book book) {
+        this.borrowedBooks++;
+        this.loans.add(book);
+    }
+
+    public List<Book> getAllLoans() {
+        return loans;
     }
 
     public void returnBorrowedBook() {

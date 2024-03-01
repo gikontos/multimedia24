@@ -98,7 +98,9 @@ public class LibraryManager {
     }
 
     public void addLoan(Book book, User user) {
-        if (user.addBorrowedBook()) {
+        if (user.canBorrowBook() && book.canloanBook()) {
+            user.Borrowed(book);
+            book.loanedBook();
             Loan loan = new Loan(book, user);
             loans.add(loan);
         }
@@ -106,6 +108,8 @@ public class LibraryManager {
 
     public void terminateLoan(Loan loan) {
         User user = loan.getUser();
+        Book book = loan.getBook();
+        book.returnBorrowedBook();
         loan.returnBook();
         user.returnBorrowedBook();
         if (loans != null) {

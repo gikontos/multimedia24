@@ -27,5 +27,6 @@ public class Loan {
 
     public void returnBook() {
         this.returned = true;
+        this.dueDate = null;
     }
 }
