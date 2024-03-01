@@ -26,8 +26,6 @@ public class User {
         this.loans = new ArrayList<>();
     }
 
-    // voids to change the info
-
     public void updateUserInfo(String username, String password, String firstName, String lastName, String idNumber,
             String email, int borrowedBooks) {
         this.username = username;
@@ -65,7 +63,9 @@ public class User {
         }
     }
 
-    // functions to retun the needed info
+    public boolean canComment(Book book) {
+        return loans.contains(book);
+    }
 
     public String viewInfo() {
         return "User Info:\n" +

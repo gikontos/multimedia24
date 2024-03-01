@@ -118,17 +118,21 @@ public class LibraryManager {
     }
 
     // Methods for users
-    public void userAddRating(Book book, int r) {
-        if (r >= 1 && r <= 5) {
-            book.addRating(r);
-        } else {
-            System.out.println("Η βαθμολογία πρέπει να είναι από 1 έως 5.");
+    public void userAddRating(Book book, User user, int r) {
+        if (user.canComment(book)) {
+            if (r >= 1 && r <= 5) {
+                book.addRating(r);
+            } else {
+                System.out.println("Η βαθμολογία πρέπει να είναι από 1 έως 5.");
+            }
         }
     }
 
-    public void userAddComment(Book book, String c) {
-        Comment comment = new Comment(c);
-        book.addComment(comment);
+    public void userAddComment(Book book, User user, String c) {
+        if (user.canComment(book)) {
+            Comment comment = new Comment(c);
+            book.addComment(comment);
+        }
     }
 
     public List<Book> searchBooks(String title, String author, int publicationYear) {
