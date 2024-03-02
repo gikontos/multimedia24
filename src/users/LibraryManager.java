@@ -13,12 +13,27 @@ public class LibraryManager implements Serializable {
     private List<Category> categories;
     private List<User> users;
     private List<Loan> loans;
+    private Administrator administrator;
 
     public LibraryManager() {
         this.books = new ArrayList<>();
         this.categories = new ArrayList<>();
         this.users = new ArrayList<>();
         this.loans = new ArrayList<>();
+        this.administrator = new Administrator("medialab", "medialab_2024");
+    }
+
+    // methods for administrator
+    public String adminUsername() {
+        return administrator.getUsername();
+    }
+
+    public String adminPassword() {
+        return administrator.getPassword();
+    }
+
+    public void adminChangeCredintials(String newUsername, String newPassword) {
+        administrator.ChangeCredintials(newUsername, newPassword);
     }
 
     // Methods for book management
@@ -71,6 +86,10 @@ public class LibraryManager implements Serializable {
     }
 
     // Methods for user management
+    public void setAllUsers(List<User> users) {
+        this.users = users;
+    }
+
     public void registerUser(String username, String password, String firstName, String lastName, String idNumber,
             String email) {
         User user = new User(username, password, firstName, lastName, idNumber, email);
