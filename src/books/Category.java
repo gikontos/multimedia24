@@ -1,6 +1,8 @@
 package src.books;
 
-public class Category {
+import java.io.Serializable;
+
+public class Category implements Serializable {
     @SuppressWarnings("unused")
     private String name;
 

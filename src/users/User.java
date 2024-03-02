@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import src.books.Book;
+import java.io.Serializable;
 
-public class User {
+public class User implements Serializable {
     private String username;
     private String password;
     private String firstName;

@@ -6,8 +6,9 @@ import src.books.Book;
 import src.books.Category;
 import src.books.Comment;
 import src.books.Loan;
+import java.io.Serializable;
 
-public class LibraryManager {
+public class LibraryManager implements Serializable {
     private List<Book> books;
     private List<Category> categories;
     private List<User> users;
