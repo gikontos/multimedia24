@@ -37,6 +37,10 @@ public class LibraryManager implements Serializable {
     }
 
     // Methods for book management
+    public void setAllBooks(List<Book> books) {
+        this.books = books;
+    }
+
     public List<Book> getAllBooks() {
         return books;
     }
@@ -63,6 +67,10 @@ public class LibraryManager implements Serializable {
     }
 
     // Methods for category management
+    public void setAllCategories(List<Category> categories) {
+        this.categories = categories;
+    }
+
     public List<Category> getAllCategories() {
         return categories;
     }
@@ -113,6 +121,10 @@ public class LibraryManager implements Serializable {
     }
 
     // Methods for loan management
+    public void setAllLoans(List<Loan> l) {
+        this.loans = l;
+    }
+
     public List<Loan> getAllLoans() {
         return loans;
     }

@@ -14,10 +14,15 @@ public class FileHandler {
 
     public static List<?> loadObjects(String filename) {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename))) {
-            return (List<?>) ois.readObject();
+            Object readObject = ois.readObject();
+            if (readObject instanceof List<?>) {
+                return (List<?>) readObject;
+            } else {
+                return null;
+            }
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
             return null;
         }
     }
+
 }
