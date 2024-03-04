@@ -2,9 +2,9 @@ package src.books;
 
 import src.users.User;
 import java.time.LocalDate;
+import java.io.Serializable;;
 
-@SuppressWarnings("unused")
-public class Loan {
+public class Loan implements Serializable {
     private Book book;
     private User user;
     private LocalDate dueDate;
@@ -28,5 +28,15 @@ public class Loan {
     public void returnBook() {
         this.returned = true;
         this.dueDate = null;
+    }
+
+    public String viewInfo() {
+        String status = (returned) ? "Returned" : "Borrowed";
+
+        return "Loan Info:" + "\n" +
+                "Title: " + book.getTitle() + "\n" +
+                "User: " + user.getUsername() + "\n" +
+                "Due Date: " + this.dueDate + "\n" +
+                "Status: " + status + "\n";
     }
 }

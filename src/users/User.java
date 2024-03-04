@@ -68,6 +68,10 @@ public class User implements Serializable {
         return loans.contains(book);
     }
 
+    public String getUsername() {
+        return this.username;
+    }
+
     public String viewInfo() {
         return "User Info:\n" +
                 "Username: " + username + "\n" +

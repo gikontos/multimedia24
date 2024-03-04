@@ -17,17 +17,17 @@ public class Start {
     public static void main(String[] args) {
         LibraryManager libraryManager = new LibraryManager();
         initializeApplication(libraryManager);
-        // Εκτέλεση εφαρμογής
+
         executeApplication(libraryManager);
-        // Τερματισμός εφαρμογής
+
         terminateApplication(libraryManager);
     }
 
     // private static void print(LibraryManager libraryManager) {
-    // System.out.println("----");
-    // List<User> loadedUsers = libraryManager.getAllUsers();
+    // List<Book> loadedUsers = libraryManager.getAllBooks();
     // if (loadedUsers != null) {
-    // for (User user : loadedUsers) {
+    // for (Book user : loadedUsers) {
+    // System.out.println("----");
     // System.out.println(user.viewInfo());
     // }
     // } else {
@@ -36,7 +36,6 @@ public class Start {
     // }
 
     private static void initializeApplication(LibraryManager libraryManager) {
-        // Ανάκτηση αντικειμένων από τα αρχεία
         createFileIfNotExists(USERS_FILE);
         createFileIfNotExists(BOOKS_FILE);
         createFileIfNotExists(LOANS_FILE);
@@ -46,8 +45,6 @@ public class Start {
         List<Book> books = (List<Book>) FileHandler.loadObjects(BOOKS_FILE);
         List<Loan> loans = (List<Loan>) FileHandler.loadObjects(LOANS_FILE);
         List<Category> categories = (List<Category>) FileHandler.loadObjects(CATEGORIES_FILE);
-
-        // Αρχικοποίηση του LibraryManager
 
         if (users != null)
             libraryManager.setAllUsers(users);
@@ -60,13 +57,9 @@ public class Start {
     }
 
     private static void executeApplication(LibraryManager libraryManager) {
-        libraryManager.registerUser("giorg", "grg", "grgrg", "012323", "frfr", "vfvf");
     }
 
     private static void terminateApplication(LibraryManager libraryManager) {
-        // Προσθέστε εδώ τη λογική που αφορά τον τερματισμό της εφαρμογής
-
-        // Αποθήκευση αντικειμένων στα αρχεία
         FileHandler.saveObjects(USERS_FILE, libraryManager.getAllUsers());
         FileHandler.saveObjects(BOOKS_FILE, libraryManager.getAllBooks());
         FileHandler.saveObjects(LOANS_FILE, libraryManager.getAllLoans());

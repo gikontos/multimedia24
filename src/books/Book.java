@@ -10,7 +10,7 @@ public class Book implements Serializable {
     private String publisher;
     private String ISBN;
     private int publicationYear;
-    private Category category;
+    private Category category = new Category("");
     private int numberOfCopies;
     private double rating;
     private int numberOfRatings;

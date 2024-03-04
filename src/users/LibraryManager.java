@@ -193,4 +193,27 @@ public class LibraryManager implements Serializable {
         return result;
     }
 
+    // searches
+    public User findUserByUsername(String usernameString) {
+        if (users != null) {
+            for (User user : users) {
+                if (user.getUsername().equals(usernameString)) {
+                    return user;
+                }
+            }
+        }
+        return null;
+    }
+
+    public Book findBookByTitle(String titleString) {
+        if (books != null) {
+            for (Book book : books) {
+                if (book.getTitle().equals(titleString)) {
+                    return book;
+                }
+            }
+        }
+        return null;
+    }
+
 }
