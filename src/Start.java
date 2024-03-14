@@ -23,18 +23,6 @@ public class Start {
         terminateApplication(libraryManager);
     }
 
-    // private static void print(LibraryManager libraryManager) {
-    // List<Book> loadedUsers = libraryManager.getAllBooks();
-    // if (loadedUsers != null) {
-    // for (Book user : loadedUsers) {
-    // System.out.println("----");
-    // System.out.println(user.viewInfo());
-    // }
-    // } else {
-    // System.out.println("Δεν βρέθηκαν χρήστες.");
-    // }
-    // }
-
     private static void initializeApplication(LibraryManager libraryManager) {
         createFileIfNotExists(USERS_FILE);
         createFileIfNotExists(BOOKS_FILE);
@@ -57,6 +45,8 @@ public class Start {
     }
 
     private static void executeApplication(LibraryManager libraryManager) {
+        App.setLibraryManager(libraryManager);
+        App.main(null);
     }
 
     private static void terminateApplication(LibraryManager libraryManager) {

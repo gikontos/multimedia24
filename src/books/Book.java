@@ -84,6 +84,14 @@ public class Book implements Serializable {
         return this.publicationYear;
     }
 
+    public double getRating() {
+        return this.rating;
+    }
+
+    public String getIsbn() {
+        return this.ISBN;
+    }
+
     public String viewInfo() {
         return "Book Info:\n" +
                 "Title: " + title + "\n" +

@@ -7,6 +7,8 @@ import src.books.Category;
 import src.books.Comment;
 import src.books.Loan;
 import java.io.Serializable;
+import java.util.Comparator;
+import java.util.stream.Collectors;
 
 public class LibraryManager implements Serializable {
     private List<Book> books;
@@ -64,6 +66,14 @@ public class LibraryManager implements Serializable {
     public void updateBook(Book book, String title, String author, String publisher, String ISBN, int publicationYear,
             String category, int numberOfCopies) {
         book.updateBookInfo(title, author, publisher, ISBN, publicationYear, category, numberOfCopies);
+    }
+
+    public List<Book> getTopRatedBooks() {
+        List<Book> ratedBooks = books.stream()
+                .sorted(Comparator.comparingDouble(Book::getRating).reversed())
+                .collect(Collectors.toList());
+
+        return ratedBooks.subList(0, Math.min(5, ratedBooks.size()));
     }
 
     // Methods for category management
