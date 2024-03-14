@@ -35,11 +35,11 @@
           <RowConstraints maxHeight="88.80002441406249" minHeight="10.0" prefHeight="79.19998779296874" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
+            <PasswordField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label prefHeight="18.0" prefWidth="71.0" text="Username" />
             <Label prefHeight="18.0" prefWidth="66.0" text="Password" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" text="Login" GridPane.rowIndex="2" />
-            <TextField prefHeight="26.0" prefWidth="410.0" GridPane.columnIndex="1" />
-            <PasswordField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Button fx:id="login" mnemonicParsing="false" onAction="#login" text="Login" GridPane.rowIndex="2" />
+            <TextField fx:id="usernameField" prefHeight="26.0" prefWidth="410.0" GridPane.columnIndex="1" />
          </children>
          <padding>
             <Insets left="20.0" right="300.0" />
@@ -66,7 +66,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <ListView fx:id="top5Books" prefHeight="167.0" prefWidth="530.0" GridPane.rowIndex="2" />
+            <ListView fx:id="top5Books" editable="true" prefHeight="167.0" prefWidth="530.0" GridPane.rowIndex="2" />
          </children>
          <GridPane.margin>
             <Insets left="20.0" />

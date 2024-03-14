@@ -20,7 +20,6 @@ public class App extends Application {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ui/login.fxml"));
         Parent root = loader.load();
-
         Scene scene = new Scene(root);
         MainController controller = loader.getController();
         controller.setStage(primaryStage);

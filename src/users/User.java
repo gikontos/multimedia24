@@ -72,6 +72,10 @@ public class User implements Serializable {
         return this.username;
     }
 
+    public String getPassword() {
+        return this.password;
+    }
+
     public String viewInfo() {
         return "User Info:\n" +
                 "Username: " + username + "\n" +
