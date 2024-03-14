@@ -5,10 +5,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
+
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="230.0" prefWidth="440.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.Controllers.MainController">
    <children>
-      <Button layoutX="174.0" layoutY="127.0" mnemonicParsing="false" onAction="#closePopUp" prefHeight="50.0" prefWidth="90.0" text="ΟΚ" />
-      <Label layoutX="14.0" layoutY="36.0" text="Wrong Credintials">
+      <Button layoutX="175.0" layoutY="151.0" mnemonicParsing="false" onAction="#closePopUp" prefHeight="50.0" prefWidth="90.0" text="OK" />
+      <Label layoutX="14.0" layoutY="46.0" text="Username already in use">
          <font>
             <Font size="18.0" />
          </font>

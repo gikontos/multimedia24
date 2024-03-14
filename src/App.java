@@ -18,13 +18,14 @@ public class App extends Application {
     public void start(Stage primaryStage) throws IOException {
         primaryStage.setTitle("Library System");
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("ui/login.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ui/Login.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         MainController controller = loader.getController();
         controller.setStage(primaryStage);
         controller.setRoot(root);
         controller.setLibraryManager(libraryManager);
+        controller.initialize();
         primaryStage.setScene(scene);
         primaryStage.show();
     }

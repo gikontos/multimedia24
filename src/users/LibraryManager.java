@@ -130,6 +130,42 @@ public class LibraryManager implements Serializable {
         user.updateUserInfo(username, password, firstName, lastName, idNumber, email, borrowedBooks);
     }
 
+    public boolean isValidCredentials(String username, String password) {
+        for (User user : users) {
+            if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean usedUsername(String username) {
+        for (User user : users) {
+            if (user.getUsername().equals(username)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean usedEmail(String email) {
+        for (User user : users) {
+            if (user.getEmail().equals(email)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean usedId(String id) {
+        for (User user : users) {
+            if (user.getId().equals(id)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     // Methods for loan management
     public void setAllLoans(List<Loan> l) {
         this.loans = l;

@@ -8,6 +8,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import dummy_data.DummyData;
+
 public class Start {
     private static final String USERS_FILE = "multimedia/users.ser";
     private static final String BOOKS_FILE = "multimedia/books.ser";
@@ -47,6 +49,8 @@ public class Start {
     private static void executeApplication(LibraryManager libraryManager) {
         App.setLibraryManager(libraryManager);
         App.main(null);
+        // DummyData data = new DummyData(libraryManager);
+        // data.addDummyData();
     }
 
     private static void terminateApplication(LibraryManager libraryManager) {
