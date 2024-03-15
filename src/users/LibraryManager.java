@@ -103,6 +103,15 @@ public class LibraryManager implements Serializable {
         category.setCategory(newCategory);
     }
 
+    public boolean isValidCategory(String categoryName) {
+        for (Category category : categories) {
+            if (category.getCategory().equals(categoryName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     // Methods for user management
     public void setAllUsers(List<User> users) {
         this.users = users;

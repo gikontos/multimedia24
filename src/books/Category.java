@@ -13,6 +13,10 @@ public class Category implements Serializable {
         this.name = category;
     }
 
+    public String getCategory() {
+        return this.name;
+    }
+
     public String viewInfo() {
         return "category: " + this.name;
     }
