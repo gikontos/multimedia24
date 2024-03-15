@@ -232,4 +232,10 @@ public class MainController {
         pageChanger page = new pageChanger(stage);
         page.changePage("addCategory", libraryManager);
     }
+
+    @FXML
+    private void goToLoansList(ActionEvent event) throws IOException {
+        pageChanger page = new pageChanger(stage);
+        page.changePage("loansList", libraryManager);
+    }
 }
