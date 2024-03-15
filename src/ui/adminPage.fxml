@@ -23,7 +23,7 @@
    <children>
       <Button mnemonicParsing="false" onAction="#goToBookList" prefHeight="26.0" prefWidth="110.0" text="Books" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       <Button mnemonicParsing="false" onAction="#goToUserListPage" prefHeight="26.0" prefWidth="110.0" text="Users" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="110.0" text="Categories" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <Button mnemonicParsing="false" onAction="#goToCategoryList" prefHeight="26.0" prefWidth="110.0" text="Categories" GridPane.columnIndex="1" GridPane.rowIndex="3" />
       <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="109.0" text="Loans" GridPane.columnIndex="1" GridPane.rowIndex="4" />
       <Label text="Manage Books" GridPane.rowIndex="1" />
       <Label text="Manage Users" GridPane.rowIndex="2" />

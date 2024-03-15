@@ -64,6 +64,8 @@ public class MainController {
     private TextField yearField;
     @FXML
     private TextField categoryField;
+    @FXML
+    private TextField newCategory;
 
     private LibraryManager libraryManager;
 
@@ -155,10 +157,25 @@ public class MainController {
                 int yearOfPublication = Integer.parseInt(year);
                 int numberOfCopiesInt = Integer.parseInt(numberOfCopies);
                 libraryManager.addBook(title, author, publisher, isbn, yearOfPublication, category, numberOfCopiesInt);
+                popup.showPopUp("success");
                 page.changePage("bookList", libraryManager);
             } catch (NumberFormatException e) {
                 popup.showPopUp("notIntegers");
             }
+        }
+    }
+
+    @FXML
+    public void addCategory(ActionEvent event) throws IOException {
+        popUps popup = new popUps();
+        pageChanger page = new pageChanger(stage);
+        String category = newCategory.getText();
+        if (libraryManager.isValidCategory(category) || category.isEmpty()) {
+            popup.showPopUp("notValidCategory");
+        } else {
+            popup.showPopUp("success");
+            libraryManager.addCategory(category);
+            page.changePage("categoryList", libraryManager);
         }
     }
 
@@ -202,5 +219,17 @@ public class MainController {
     private void goToBookList(ActionEvent event) throws IOException {
         pageChanger page = new pageChanger(stage);
         page.changePage("bookList", libraryManager);
+    }
+
+    @FXML
+    private void goToCategoryList(ActionEvent event) throws IOException {
+        pageChanger page = new pageChanger(stage);
+        page.changePage("categoryList", libraryManager);
+    }
+
+    @FXML
+    private void goToAddCategory(ActionEvent event) throws IOException {
+        pageChanger page = new pageChanger(stage);
+        page.changePage("addCategory", libraryManager);
     }
 }
