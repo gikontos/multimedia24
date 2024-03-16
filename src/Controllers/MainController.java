@@ -21,6 +21,8 @@ import src.books.Category;
 import src.uiComponents.BookListCell;
 import src.uiComponents.CategoryDeleteCell;
 import src.uiComponents.CategoryUpdateCell;
+import src.uiComponents.userDeleteCell;
+import src.uiComponents.userUpdateCell;
 import src.users.LibraryManager;
 import src.users.User;
 import src.Controllers.helpers.*;
@@ -58,8 +60,6 @@ public class MainController {
     @FXML
     private TextField adtField;
     @FXML
-    private TableView<User> listOfUsers;
-    @FXML
     private TextField titleField;
     @FXML
     private TextField authorField;
@@ -83,6 +83,18 @@ public class MainController {
     private TableColumn<Category, Button> categoryDelete;
     @FXML
     private TableColumn<Category, Button> categoryUpdate;
+    @FXML
+    private TableView<User> listOfUsers;
+    @FXML
+    private TableColumn<User, String> nameColumn;
+    @FXML
+    private TableColumn<User, String> lastNameColumn;
+    @FXML
+    private TableColumn<User, String> usernameColumn;
+    @FXML
+    private TableColumn<User, Button> userDelete;
+    @FXML
+    private TableColumn<User, Button> userUpdate;
 
     private LibraryManager libraryManager;
 
@@ -100,57 +112,6 @@ public class MainController {
         top5Books.setCellFactory(param -> new BookListCell());
     }
 
-    // @FXML
-    // public void initializeCategoryTable() {
-    // categoryColumn.setCellValueFactory(new Callback<>() {
-    // @Override
-    // public ObservableValue<String> call(TableColumn.CellDataFeatures<Category,
-    // String> cellData) {
-    // String category = cellData.getValue().getCategory();
-    // return new SimpleStringProperty(category);
-    // }
-    // });
-    // categoryDelete.setCellFactory(param -> new TableCell<>() {
-    // private final Button deleteButton = new Button("Delete");
-    // {
-    // deleteButton.setOnAction(event -> {
-    // Category category = getTableView().getItems().get(getIndex());
-    // System.out.println("Delete button clicked for category: " + category);
-    // });
-    // }
-
-    // @Override
-    // protected void updateItem(Button item, boolean empty) {
-    // super.updateItem(item, empty);
-    // if (empty) {
-    // setGraphic(null);
-    // } else {
-    // setGraphic(deleteButton);
-    // }
-    // }
-    // });
-    // categoryUpdate.setCellFactory(param -> new TableCell<>() {
-    // private final Button updateButton = new Button("Update");
-    // {
-    // updateButton.setOnAction(event -> {
-    // Category category = getTableView().getItems().get(getIndex());
-    // System.out.println("Update button clicked for category: " + category);
-    // });
-    // }
-
-    // @Override
-    // protected void updateItem(Button item, boolean empty) {
-    // super.updateItem(item, empty);
-    // if (empty) {
-    // setGraphic(null);
-    // } else {
-    // setGraphic(updateButton);
-    // }
-    // }
-    // });
-    // List<Category> categories = libraryManager.getAllCategories();
-    // categoryTableView.getItems().addAll(categories);
-    // }
     @FXML
     public void initializeCategoryTable() {
         categoryColumn.setCellValueFactory(new Callback<>() {
@@ -164,6 +125,35 @@ public class MainController {
         categoryUpdate.setCellFactory(param -> new CategoryUpdateCell());
         List<Category> categories = libraryManager.getAllCategories();
         categoryTableView.getItems().addAll(categories);
+    }
+
+    @FXML
+    public void initializeUsersTable() {
+        nameColumn.setCellValueFactory(new Callback<>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<User, String> cellData) {
+                String name = cellData.getValue().getName();
+                return new SimpleStringProperty(name);
+            }
+        });
+        lastNameColumn.setCellValueFactory(new Callback<>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<User, String> cellData) {
+                String name = cellData.getValue().getLastName();
+                return new SimpleStringProperty(name);
+            }
+        });
+        usernameColumn.setCellValueFactory(new Callback<>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<User, String> cellData) {
+                String name = cellData.getValue().getUsername();
+                return new SimpleStringProperty(name);
+            }
+        });
+        userDelete.setCellFactory(param -> new userDeleteCell());
+        userUpdate.setCellFactory(param -> new userUpdateCell());
+        List<User> users = libraryManager.getAllUsers();
+        listOfUsers.getItems().addAll(users);
     }
 
     @FXML
@@ -191,9 +181,6 @@ public class MainController {
         String email = emailField.getText();
         String password = newPasswordField.getText();
         String adt = adtField.getText();
-        if (libraryManager == null) {
-            System.out.println("gio");
-        }
         if (!username.isEmpty() && !name.isEmpty() && !lastName.isEmpty() && !email.isEmpty() && !password.isEmpty()
                 && !adt.isEmpty()) {
             boolean canRegister = true;

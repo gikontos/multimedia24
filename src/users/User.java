@@ -84,6 +84,14 @@ public class User implements Serializable {
         return this.idNumber;
     }
 
+    public String getName() {
+        return this.firstName;
+    }
+
+    public String getLastName() {
+        return this.lastName;
+    }
+
     public String viewInfo() {
         return "User Info:\n" +
                 "Username: " + username + "\n" +
