@@ -18,11 +18,13 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import src.books.Book;
 import src.books.Category;
+import src.books.Loan;
 import src.uiComponents.BookDeleteCell;
 import src.uiComponents.BookListCell;
 import src.uiComponents.BookUpdateCell;
 import src.uiComponents.CategoryDeleteCell;
 import src.uiComponents.CategoryUpdateCell;
+import src.uiComponents.LoansEndCell;
 import src.uiComponents.userDeleteCell;
 import src.uiComponents.userUpdateCell;
 import src.users.LibraryManager;
@@ -119,6 +121,16 @@ public class MainController {
     private TableColumn<Book, String> adminBookCategory;
     @FXML
     private TableColumn<Book, String> adminBookRating;
+    @FXML
+    private TableView<Loan> adminLoansList;
+    @FXML
+    private TableColumn<Loan, String> adminLoansTitle;
+    @FXML
+    private TableColumn<Loan, String> adminLoansUser;
+    @FXML
+    private TableColumn<Loan, String> adminLoansDate;
+    @FXML
+    private TableColumn<Loan, Button> adminLoansEnd;
 
     private LibraryManager libraryManager;
 
@@ -149,6 +161,34 @@ public class MainController {
         categoryUpdate.setCellFactory(param -> new CategoryUpdateCell());
         List<Category> categories = libraryManager.getAllCategories();
         categoryTableView.getItems().addAll(categories);
+    }
+
+    @FXML
+    public void initializeLoansTable() {
+        adminLoansTitle.setCellValueFactory(new Callback<>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Loan, String> cellData) {
+                String title = cellData.getValue().getBookTitle();
+                return new SimpleStringProperty(title);
+            }
+        });
+        adminLoansUser.setCellValueFactory(new Callback<>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Loan, String> cellData) {
+                String user = cellData.getValue().getUserUsername();
+                return new SimpleStringProperty(user);
+            }
+        });
+        adminLoansDate.setCellValueFactory(new Callback<>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Loan, String> cellData) {
+                String date = cellData.getValue().getDueDateString();
+                return new SimpleStringProperty(date);
+            }
+        });
+        adminLoansEnd.setCellFactory(param -> new LoansEndCell());
+        List<Loan> loans = libraryManager.getAllLoans();
+        adminLoansList.getItems().addAll(loans);
     }
 
     @FXML

@@ -2,6 +2,7 @@ package src.books;
 
 import src.users.User;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.io.Serializable;;
 
 public class Loan implements Serializable {
@@ -23,6 +24,19 @@ public class Loan implements Serializable {
 
     public User getUser() {
         return this.user;
+    }
+
+    public String getBookTitle() {
+        return this.book.getTitle();
+    }
+
+    public String getUserUsername() {
+        return this.user.getUsername();
+    }
+
+    public String getDueDateString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return dueDate.format(formatter);
     }
 
     public void returnBook() {
