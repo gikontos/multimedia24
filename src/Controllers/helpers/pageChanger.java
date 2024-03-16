@@ -34,6 +34,9 @@ public class pageChanger {
             if (file.equals("userList")) {
                 controller.initializeUsersTable();
             }
+            if (file.equals("bookList")) {
+                controller.initializeBookTable();
+            }
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {

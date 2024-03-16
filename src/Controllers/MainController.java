@@ -18,7 +18,9 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import src.books.Book;
 import src.books.Category;
+import src.uiComponents.BookDeleteCell;
 import src.uiComponents.BookListCell;
+import src.uiComponents.BookUpdateCell;
 import src.uiComponents.CategoryDeleteCell;
 import src.uiComponents.CategoryUpdateCell;
 import src.uiComponents.userDeleteCell;
@@ -95,6 +97,28 @@ public class MainController {
     private TableColumn<User, Button> userDelete;
     @FXML
     private TableColumn<User, Button> userUpdate;
+    @FXML
+    private TableView<Book> adminBookList;
+    @FXML
+    private TableColumn<Book, String> adminBookTitle;
+    @FXML
+    private TableColumn<Book, String> adminBookAuthor;
+    @FXML
+    private TableColumn<Book, String> adminBookPublisher;
+    @FXML
+    private TableColumn<Book, String> adminBookisbn;
+    @FXML
+    private TableColumn<Book, String> adminBookYear;
+    @FXML
+    private TableColumn<Book, String> adminBookCopies;
+    @FXML
+    private TableColumn<Book, Button> adminBookDelete;
+    @FXML
+    private TableColumn<Book, Button> adminBookUpdate;
+    @FXML
+    private TableColumn<Book, String> adminBookCategory;
+    @FXML
+    private TableColumn<Book, String> adminBookRating;
 
     private LibraryManager libraryManager;
 
@@ -125,6 +149,70 @@ public class MainController {
         categoryUpdate.setCellFactory(param -> new CategoryUpdateCell());
         List<Category> categories = libraryManager.getAllCategories();
         categoryTableView.getItems().addAll(categories);
+    }
+
+    @FXML
+    public void initializeBookTable() {
+        adminBookTitle.setCellValueFactory(new Callback<>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Book, String> cellData) {
+                String title = cellData.getValue().getTitle();
+                return new SimpleStringProperty(title);
+            }
+        });
+        adminBookAuthor.setCellValueFactory(new Callback<>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Book, String> cellData) {
+                String author = cellData.getValue().getAuthor();
+                return new SimpleStringProperty(author);
+            }
+        });
+        adminBookisbn.setCellValueFactory(new Callback<>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Book, String> cellData) {
+                String isbn = cellData.getValue().getIsbn();
+                return new SimpleStringProperty(isbn);
+            }
+        });
+        adminBookPublisher.setCellValueFactory(new Callback<>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Book, String> cellData) {
+                String publisher = cellData.getValue().getPublisher();
+                return new SimpleStringProperty(publisher);
+            }
+        });
+        adminBookCopies.setCellValueFactory(new Callback<>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Book, String> cellData) {
+                String copies = cellData.getValue().getNumberOfCopies();
+                return new SimpleStringProperty(copies);
+            }
+        });
+        adminBookYear.setCellValueFactory(new Callback<>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Book, String> cellData) {
+                String year = cellData.getValue().getYear();
+                return new SimpleStringProperty(year);
+            }
+        });
+        adminBookCategory.setCellValueFactory(new Callback<>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Book, String> cellData) {
+                String category = cellData.getValue().getCategory();
+                return new SimpleStringProperty(category);
+            }
+        });
+        adminBookRating.setCellValueFactory(new Callback<>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Book, String> cellData) {
+                String rating = cellData.getValue().getStringRating();
+                return new SimpleStringProperty(rating);
+            }
+        });
+        adminBookDelete.setCellFactory(param -> new BookDeleteCell());
+        adminBookUpdate.setCellFactory(param -> new BookUpdateCell());
+        List<Book> books = libraryManager.getAllBooks();
+        adminBookList.getItems().addAll(books);
     }
 
     @FXML

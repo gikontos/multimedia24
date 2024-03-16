@@ -92,6 +92,26 @@ public class Book implements Serializable {
         return this.ISBN;
     }
 
+    public String getPublisher() {
+        return this.publisher;
+    }
+
+    public String getNumberOfCopies() {
+        return Integer.toString(this.numberOfCopies);
+    }
+
+    public String getYear() {
+        return Integer.toString(this.publicationYear);
+    }
+
+    public String getCategory() {
+        return this.category.getCategory();
+    }
+
+    public String getStringRating() {
+        return Double.toString(this.rating);
+    }
+
     public int getNumberOfRatings() {
         return this.numberOfRatings;
     }
