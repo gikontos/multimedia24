@@ -12,9 +12,9 @@ public class BookListCell extends ListCell<Book> {
         if (empty || book == null) {
             setText(null);
         } else {
-            setText(String.format("%s by %s\nISBN: %s\nAverage Rating: %.2f",
+            setText(String.format("%s by %s\nISBN: %s\nAverage Rating: %.2f\n (from %d Users)",
                     book.getTitle(), book.getAuthor(), book.getIsbn(),
-                    book.getRating()));
+                    book.getRating(), book.getNumberOfRatings()));
         }
     }
 }

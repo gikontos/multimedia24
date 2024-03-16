@@ -92,6 +92,10 @@ public class Book implements Serializable {
         return this.ISBN;
     }
 
+    public int getNumberOfRatings() {
+        return this.numberOfRatings;
+    }
+
     public String viewInfo() {
         return "Book Info:\n" +
                 "Title: " + title + "\n" +

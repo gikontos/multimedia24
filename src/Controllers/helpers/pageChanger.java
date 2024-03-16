@@ -28,6 +28,9 @@ public class pageChanger {
             if (file.equals("Login")) {
                 controller.initialize();
             }
+            if (file.equals("categoryList")) {
+                controller.initializeCategoryTable();
+            }
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {

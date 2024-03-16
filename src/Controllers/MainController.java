@@ -1,17 +1,26 @@
 package src.Controllers;
 
 import java.util.List;
+
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import src.books.Book;
+import src.books.Category;
 import src.uiComponents.BookListCell;
+import src.uiComponents.CategoryDeleteCell;
+import src.uiComponents.CategoryUpdateCell;
 import src.users.LibraryManager;
 import src.users.User;
 import src.Controllers.helpers.*;
@@ -66,6 +75,14 @@ public class MainController {
     private TextField categoryField;
     @FXML
     private TextField newCategory;
+    @FXML
+    private TableView<Category> categoryTableView;
+    @FXML
+    private TableColumn<Category, String> categoryColumn;
+    @FXML
+    private TableColumn<Category, Button> categoryDelete;
+    @FXML
+    private TableColumn<Category, Button> categoryUpdate;
 
     private LibraryManager libraryManager;
 
@@ -81,6 +98,72 @@ public class MainController {
         List<Book> topBooks = libraryManager.getTopRatedBooks();
         top5Books.getItems().setAll(topBooks);
         top5Books.setCellFactory(param -> new BookListCell());
+    }
+
+    // @FXML
+    // public void initializeCategoryTable() {
+    // categoryColumn.setCellValueFactory(new Callback<>() {
+    // @Override
+    // public ObservableValue<String> call(TableColumn.CellDataFeatures<Category,
+    // String> cellData) {
+    // String category = cellData.getValue().getCategory();
+    // return new SimpleStringProperty(category);
+    // }
+    // });
+    // categoryDelete.setCellFactory(param -> new TableCell<>() {
+    // private final Button deleteButton = new Button("Delete");
+    // {
+    // deleteButton.setOnAction(event -> {
+    // Category category = getTableView().getItems().get(getIndex());
+    // System.out.println("Delete button clicked for category: " + category);
+    // });
+    // }
+
+    // @Override
+    // protected void updateItem(Button item, boolean empty) {
+    // super.updateItem(item, empty);
+    // if (empty) {
+    // setGraphic(null);
+    // } else {
+    // setGraphic(deleteButton);
+    // }
+    // }
+    // });
+    // categoryUpdate.setCellFactory(param -> new TableCell<>() {
+    // private final Button updateButton = new Button("Update");
+    // {
+    // updateButton.setOnAction(event -> {
+    // Category category = getTableView().getItems().get(getIndex());
+    // System.out.println("Update button clicked for category: " + category);
+    // });
+    // }
+
+    // @Override
+    // protected void updateItem(Button item, boolean empty) {
+    // super.updateItem(item, empty);
+    // if (empty) {
+    // setGraphic(null);
+    // } else {
+    // setGraphic(updateButton);
+    // }
+    // }
+    // });
+    // List<Category> categories = libraryManager.getAllCategories();
+    // categoryTableView.getItems().addAll(categories);
+    // }
+    @FXML
+    public void initializeCategoryTable() {
+        categoryColumn.setCellValueFactory(new Callback<>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Category, String> cellData) {
+                String category = cellData.getValue().getCategory();
+                return new SimpleStringProperty(category);
+            }
+        });
+        categoryDelete.setCellFactory(param -> new CategoryDeleteCell());
+        categoryUpdate.setCellFactory(param -> new CategoryUpdateCell());
+        List<Category> categories = libraryManager.getAllCategories();
+        categoryTableView.getItems().addAll(categories);
     }
 
     @FXML
@@ -210,6 +293,12 @@ public class MainController {
     }
 
     @FXML
+    private void backToUserPage(ActionEvent event) throws IOException {
+        pageChanger page = new pageChanger(stage);
+        page.changePage("userPage", libraryManager);
+    }
+
+    @FXML
     private void goToAddBook(ActionEvent event) throws IOException {
         pageChanger page = new pageChanger(stage);
         page.changePage("addBook", libraryManager);
@@ -237,5 +326,11 @@ public class MainController {
     private void goToLoansList(ActionEvent event) throws IOException {
         pageChanger page = new pageChanger(stage);
         page.changePage("loansList", libraryManager);
+    }
+
+    @FXML
+    private void goToResults(ActionEvent event) throws IOException {
+        pageChanger page = new pageChanger(stage);
+        page.changePage("results", libraryManager);
     }
 }
