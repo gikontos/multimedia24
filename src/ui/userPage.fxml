@@ -38,9 +38,9 @@
             <Label text="Title" />
             <Label text="Author" GridPane.rowIndex="1" />
             <Label text="Year" GridPane.rowIndex="2" />
-            <TextField GridPane.columnIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="searchTitle" GridPane.columnIndex="1" />
+            <TextField fx:id="searchAuthor" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="searchYear" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
          <padding>
             <Insets left="20.0" />

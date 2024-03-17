@@ -1,17 +1,21 @@
 package src.uiComponents;
 
+import src.Controllers.helpers.pageChanger;
 import src.books.*;
+import src.users.LibraryManager;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
+import javafx.stage.Stage;
 
 public class LoansEndCell extends TableCell<Loan, Button> {
     private final Button deleteButton = new Button("End Loan");
 
-    public LoansEndCell() {
+    public LoansEndCell(LibraryManager manager, Stage stage) {
         deleteButton.setOnAction(event -> {
-            Loan book = getTableView().getItems().get(getIndex());
-            System.out.println("End button clicked for book: " + book.getBookTitle());
-            // Add your delete logic here
+            Loan loan = getTableView().getItems().get(getIndex());
+            manager.terminateLoan(loan);
+            pageChanger page = new pageChanger(stage);
+            page.changePage("loansList", manager);
         });
 
     }

@@ -6,8 +6,10 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.PasswordField;
@@ -25,6 +27,8 @@ import src.uiComponents.BookUpdateCell;
 import src.uiComponents.CategoryDeleteCell;
 import src.uiComponents.CategoryUpdateCell;
 import src.uiComponents.LoansEndCell;
+import src.uiComponents.resultsReserveCell;
+import src.uiComponents.resultsViewInfoCell;
 import src.uiComponents.userDeleteCell;
 import src.uiComponents.userUpdateCell;
 import src.users.LibraryManager;
@@ -131,6 +135,12 @@ public class MainController {
     private TableColumn<Loan, String> adminLoansDate;
     @FXML
     private TableColumn<Loan, Button> adminLoansEnd;
+    @FXML
+    private TextField searchTitle;
+    @FXML
+    private TextField searchAuthor;
+    @FXML
+    private TextField searchYear;
 
     private LibraryManager libraryManager;
 
@@ -186,7 +196,7 @@ public class MainController {
                 return new SimpleStringProperty(date);
             }
         });
-        adminLoansEnd.setCellFactory(param -> new LoansEndCell());
+        adminLoansEnd.setCellFactory(param -> new LoansEndCell(libraryManager, stage));
         List<Loan> loans = libraryManager.getAllLoans();
         adminLoansList.getItems().addAll(loans);
     }
@@ -444,8 +454,71 @@ public class MainController {
     }
 
     @FXML
+    private TableView<Book> resultsTable;
+    @FXML
+    private TableColumn<Book, String> resultsTitle;
+    @FXML
+    private TableColumn<Book, String> resultsAuthor;
+    @FXML
+    private TableColumn<Book, String> resultsYear;
+    @FXML
+    private TableColumn<Book, Button> resultsViewInfo;
+    @FXML
+    private TableColumn<Book, Button> resultsReserve;
+
+    @FXML
     private void goToResults(ActionEvent event) throws IOException {
-        pageChanger page = new pageChanger(stage);
-        page.changePage("results", libraryManager);
+        String title = searchTitle.getText();
+        String author = searchAuthor.getText();
+        String year = searchYear.getText();
+        popUps popUp = new popUps();
+        try {
+            int number = 0;
+            if (!year.isEmpty()) {
+                number = Integer.parseInt(year);
+            }
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../ui/results.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            MainController newcontroller = loader.getController();
+            newcontroller.setStage(stage);
+            newcontroller.setRoot(root);
+            newcontroller.setLibraryManager(libraryManager);
+            newcontroller.initializeResultsTable(title, author, number);
+            stage.setScene(scene);
+            stage.show();
+        } catch (NumberFormatException e) {
+            popUp.showPopUp("notIntegers");
+        }
+
+    }
+
+    @FXML
+    private void initializeResultsTable(String title, String author, int number) {
+        resultsTitle.setCellValueFactory(new Callback<>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Book, String> cellData) {
+                String title = cellData.getValue().getTitle();
+                return new SimpleStringProperty(title);
+            }
+        });
+        resultsAuthor.setCellValueFactory(new Callback<>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Book, String> cellData) {
+                String author = cellData.getValue().getAuthor();
+                return new SimpleStringProperty(author);
+            }
+        });
+        resultsYear.setCellValueFactory(new Callback<>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Book, String> cellData) {
+                String year = cellData.getValue().getYear();
+                return new SimpleStringProperty(year);
+            }
+        });
+        List<Book> books = libraryManager.searchBooks(title, author, number);
+        resultsReserve.setCellFactory(param -> new resultsReserveCell());
+        resultsViewInfo.setCellFactory(param -> new resultsViewInfoCell());
+        resultsTable.getItems().addAll(books);
     }
 }
