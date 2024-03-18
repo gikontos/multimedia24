@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import src.Controllers.MainController;
 import src.users.LibraryManager;
+import src.users.User;
 
 public class pageChanger {
     private Stage stage;
@@ -16,7 +17,7 @@ public class pageChanger {
         this.stage = stage;
     }
 
-    public void changePage(String file, LibraryManager manager) {
+    public void changePage(String file, LibraryManager manager, final User user) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../../ui/" + file + ".fxml"));
             Parent root = loader.load();
@@ -39,6 +40,10 @@ public class pageChanger {
             }
             if (file.equals("loansList")) {
                 controller.initializeLoansTable();
+            }
+            if (file.equals("userPage")) {
+                controller.setUser(user);
+                controller.initializeUserLoansTable();
             }
             stage.setScene(scene);
             stage.show();

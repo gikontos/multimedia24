@@ -148,6 +148,15 @@ public class LibraryManager implements Serializable {
         return false;
     }
 
+    public User findUser(String username) {
+        for (User user : users) {
+            if (user.getUsername().equals(username)) {
+                return user;
+            }
+        }
+        return null;
+    }
+
     public boolean usedUsername(String username) {
         for (User user : users) {
             if (user.getUsername().equals(username)) {
@@ -190,6 +199,7 @@ public class LibraryManager implements Serializable {
             book.loanedBook();
             Loan loan = new Loan(book, user);
             loans.add(loan);
+            user.addLoan(loan);
         }
     }
 

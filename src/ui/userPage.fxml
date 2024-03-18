@@ -57,12 +57,14 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <TableView prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
+      <TableView fx:id="userLoanList" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
         <columns>
-          <TableColumn prefWidth="117.60004043579102" text="Book Title" />
-          <TableColumn prefWidth="113.5999755859375" text="Due Date" />
-            <TableColumn prefWidth="102.39994812011719" text="Add Rating" />
-            <TableColumn prefWidth="141.60009765625" text="Add Comment" />
+          <TableColumn fx:id="userTitle" prefWidth="85.60004043579102" text="Book Title" />
+            <TableColumn fx:id="userIsbn" prefWidth="52.79998779296875" text="ISBN" />
+            <TableColumn fx:id="userStartDate" prefWidth="76.0" text="Start Date" />
+          <TableColumn fx:id="userDate" prefWidth="75.19999694824219" text="Due Date" />
+            <TableColumn fx:id="userRating" prefWidth="88.7999267578125" text="Add Rating" />
+            <TableColumn fx:id="userComment" prefWidth="95.2000732421875" text="Add Comment" />
         </columns>
       </TableView>
    </children>

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import src.books.Book;
+import src.books.Loan;
+
 import java.io.Serializable;
 
 public class User implements Serializable {
@@ -54,6 +56,10 @@ public class User implements Serializable {
 
     public List<Book> getAllLoans() {
         return loans;
+    }
+
+    public void addLoan(Loan loan) {
+        this.loans.add(loan.getBook());
     }
 
     public void returnBorrowedBook() {

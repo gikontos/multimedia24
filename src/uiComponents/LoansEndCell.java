@@ -15,7 +15,7 @@ public class LoansEndCell extends TableCell<Loan, Button> {
             Loan loan = getTableView().getItems().get(getIndex());
             manager.terminateLoan(loan);
             pageChanger page = new pageChanger(stage);
-            page.changePage("loansList", manager);
+            page.changePage("loansList", manager, null);
         });
 
     }

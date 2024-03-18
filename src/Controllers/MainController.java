@@ -30,6 +30,8 @@ import src.uiComponents.LoansEndCell;
 import src.uiComponents.resultsReserveCell;
 import src.uiComponents.resultsViewInfoCell;
 import src.uiComponents.userDeleteCell;
+import src.uiComponents.userLoanComment;
+import src.uiComponents.userLoanRating;
 import src.uiComponents.userUpdateCell;
 import src.users.LibraryManager;
 import src.users.User;
@@ -141,11 +143,30 @@ public class MainController {
     private TextField searchAuthor;
     @FXML
     private TextField searchYear;
+    @FXML
+    private TableView<Book> userLoanList;
+    @FXML
+    private TableColumn<Book, String> userTitle;
+    @FXML
+    private TableColumn<Book, String> userIsbn;
+    @FXML
+    private TableColumn<Book, String> userStartDate;
+    @FXML
+    private TableColumn<Book, String> userDate;
+    @FXML
+    private TableColumn<Book, Button> userRating;
+    @FXML
+    private TableColumn<Book, Button> userComment;
 
     private LibraryManager libraryManager;
+    private User user;
 
     public void setLibraryManager(LibraryManager libraryManager) {
         this.libraryManager = libraryManager;
+    }
+
+    public void setUser(User u) {
+        user = u;
     }
 
     @FXML
@@ -199,6 +220,28 @@ public class MainController {
         adminLoansEnd.setCellFactory(param -> new LoansEndCell(libraryManager, stage));
         List<Loan> loans = libraryManager.getAllLoans();
         adminLoansList.getItems().addAll(loans);
+    }
+
+    @FXML
+    public void initializeUserLoansTable() {
+        userTitle.setCellValueFactory(new Callback<>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Book, String> cellData) {
+                String title = cellData.getValue().getTitle();
+                return new SimpleStringProperty(title);
+            }
+        });
+        userIsbn.setCellValueFactory(new Callback<>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Book, String> cellData) {
+                String isbn = cellData.getValue().getIsbn();
+                return new SimpleStringProperty(isbn);
+            }
+        });
+        userComment.setCellFactory(param -> new userLoanComment());
+        userRating.setCellFactory(param -> new userLoanRating());
+        List<Book> books = user.getAllLoans();
+        userLoanList.getItems().addAll(books);
     }
 
     @FXML
@@ -301,9 +344,10 @@ public class MainController {
         String username = usernameField.getText();
         String password = passwordField.getText();
         if (username.equals("m") && password.equals("m")) {
-            page.changePage("adminPage", libraryManager);
+            page.changePage("adminPage", libraryManager, null);
         } else if (libraryManager.isValidCredentials(username, password)) {
-            page.changePage("userPage", libraryManager);
+            User user1 = libraryManager.findUser(username);
+            page.changePage("userPage", libraryManager, user1);
         } else {
             popup.showPopUp("wrongUser");
         }
@@ -336,7 +380,7 @@ public class MainController {
             }
             if ((canRegister)) {
                 popup.showPopUp("successfullRegistration");
-                page.changePage("Login", libraryManager);
+                page.changePage("Login", libraryManager, null);
                 libraryManager.registerUser(username, password, lastName, lastName, adt, email);
             }
         } else {
@@ -366,7 +410,7 @@ public class MainController {
                 int numberOfCopiesInt = Integer.parseInt(numberOfCopies);
                 libraryManager.addBook(title, author, publisher, isbn, yearOfPublication, category, numberOfCopiesInt);
                 popup.showPopUp("success");
-                page.changePage("bookList", libraryManager);
+                page.changePage("bookList", libraryManager, null);
             } catch (NumberFormatException e) {
                 popup.showPopUp("notIntegers");
             }
@@ -383,7 +427,7 @@ public class MainController {
         } else {
             popup.showPopUp("success");
             libraryManager.addCategory(category);
-            page.changePage("categoryList", libraryManager);
+            page.changePage("categoryList", libraryManager, null);
         }
     }
 
@@ -396,61 +440,61 @@ public class MainController {
     @FXML
     private void goToRegisterPage(ActionEvent event) throws IOException {
         pageChanger page = new pageChanger(stage);
-        page.changePage("register", libraryManager);
+        page.changePage("register", libraryManager, null);
     }
 
     @FXML
     private void goToUserListPage(ActionEvent event) throws IOException {
         pageChanger page = new pageChanger(stage);
-        page.changePage("userList", libraryManager);
+        page.changePage("userList", libraryManager, null);
     }
 
     @FXML
     private void backToAdminPage(ActionEvent event) throws IOException {
         pageChanger page = new pageChanger(stage);
-        page.changePage("adminPage", libraryManager);
+        page.changePage("adminPage", libraryManager, null);
     }
 
     @FXML
     private void backToLoginPage(ActionEvent event) throws IOException {
         pageChanger page = new pageChanger(stage);
-        page.changePage("Login", libraryManager);
+        page.changePage("Login", libraryManager, null);
     }
 
     @FXML
     private void backToUserPage(ActionEvent event) throws IOException {
         pageChanger page = new pageChanger(stage);
-        page.changePage("userPage", libraryManager);
+        page.changePage("userPage", libraryManager, user);
     }
 
     @FXML
     private void goToAddBook(ActionEvent event) throws IOException {
         pageChanger page = new pageChanger(stage);
-        page.changePage("addBook", libraryManager);
+        page.changePage("addBook", libraryManager, null);
     }
 
     @FXML
     private void goToBookList(ActionEvent event) throws IOException {
         pageChanger page = new pageChanger(stage);
-        page.changePage("bookList", libraryManager);
+        page.changePage("bookList", libraryManager, null);
     }
 
     @FXML
     private void goToCategoryList(ActionEvent event) throws IOException {
         pageChanger page = new pageChanger(stage);
-        page.changePage("categoryList", libraryManager);
+        page.changePage("categoryList", libraryManager, null);
     }
 
     @FXML
     private void goToAddCategory(ActionEvent event) throws IOException {
         pageChanger page = new pageChanger(stage);
-        page.changePage("addCategory", libraryManager);
+        page.changePage("addCategory", libraryManager, null);
     }
 
     @FXML
     private void goToLoansList(ActionEvent event) throws IOException {
         pageChanger page = new pageChanger(stage);
-        page.changePage("loansList", libraryManager);
+        page.changePage("loansList", libraryManager, null);
     }
 
     @FXML
@@ -484,6 +528,7 @@ public class MainController {
             newcontroller.setStage(stage);
             newcontroller.setRoot(root);
             newcontroller.setLibraryManager(libraryManager);
+            newcontroller.setUser(user);
             newcontroller.initializeResultsTable(title, author, number);
             stage.setScene(scene);
             stage.show();
