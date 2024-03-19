@@ -59,6 +59,14 @@ public class LibraryManager implements Serializable {
     }
 
     public void deleteBook(Book book) {
+        Iterator<Loan> loanIterator = loans.iterator();
+        while (loanIterator.hasNext()) {
+            Loan loan = loanIterator.next();
+            if (loan.getBook().getTitle().equals(book.getTitle())) {
+                loan.returnBook();
+                loanIterator.remove();
+            }
+        }
         if (books != null) {
             books.remove(book);
         }

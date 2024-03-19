@@ -302,7 +302,7 @@ public class MainController {
                 return new SimpleStringProperty(rating);
             }
         });
-        adminBookDelete.setCellFactory(param -> new BookDeleteCell());
+        adminBookDelete.setCellFactory(param -> new BookDeleteCell(libraryManager, stage));
         adminBookUpdate.setCellFactory(param -> new BookUpdateCell());
         List<Book> books = libraryManager.getAllBooks();
         adminBookList.getItems().addAll(books);
