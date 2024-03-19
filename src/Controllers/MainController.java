@@ -331,7 +331,7 @@ public class MainController {
                 return new SimpleStringProperty(name);
             }
         });
-        userDelete.setCellFactory(param -> new userDeleteCell());
+        userDelete.setCellFactory(param -> new userDeleteCell(libraryManager, stage));
         userUpdate.setCellFactory(param -> new userUpdateCell());
         List<User> users = libraryManager.getAllUsers();
         listOfUsers.getItems().addAll(users);

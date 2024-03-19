@@ -58,13 +58,15 @@ public class User implements Serializable {
         return loans;
     }
 
-    public void addLoan(Loan loan) {
-        this.loans.add(loan.getBook());
-    }
-
-    public void returnBorrowedBook() {
+    public void returnBorrowedBook(Loan loan, LibraryManager libraryManager) {
         if (this.borrowedBooks > 0) {
             this.borrowedBooks--;
+            for (int i = 0; i < loans.size(); i++) {
+                Book borrowedBook = loans.get(i);
+                if (borrowedBook.getTitle().equals(loan.getBookTitle())) {
+                    loans.remove(i);
+                }
+            }
         } else {
             System.out.println("Δεν Υπάρχει δανεισμός στο όνομα του χρήστη");
         }

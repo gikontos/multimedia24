@@ -9,6 +9,7 @@ import src.books.Loan;
 import java.io.Serializable;
 import java.util.Comparator;
 import java.util.stream.Collectors;
+import java.util.Iterator;
 
 public class LibraryManager implements Serializable {
     private List<Book> books;
@@ -128,9 +129,15 @@ public class LibraryManager implements Serializable {
     }
 
     public void deleteUser(User user) {
-        if (users != null) {
-            users.remove(user);
+        Iterator<Loan> loanIterator = loans.iterator();
+        while (loanIterator.hasNext()) {
+            Loan loan = loanIterator.next();
+            if (loan.getUser().getUsername().equals(user.getUsername())) {
+                loan.returnBook();
+                loanIterator.remove();
+            }
         }
+        users.remove(user);
     }
 
     public void updateUser(User user, String username, String password, String firstName, String lastName,
@@ -199,7 +206,6 @@ public class LibraryManager implements Serializable {
             book.loanedBook();
             Loan loan = new Loan(book, user);
             loans.add(loan);
-            user.addLoan(loan);
         }
     }
 
@@ -208,7 +214,8 @@ public class LibraryManager implements Serializable {
         Book book = loan.getBook();
         book.returnBorrowedBook();
         loan.returnBook();
-        user.returnBorrowedBook();
+        User user2 = findUserByUsername(user.getUsername());
+        user2.returnBorrowedBook(loan, this);
         if (loans != null) {
             loans.remove(loan);
         }

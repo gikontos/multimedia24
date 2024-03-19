@@ -8,12 +8,14 @@ import java.io.Serializable;;
 public class Loan implements Serializable {
     private Book book;
     private User user;
+    private LocalDate startDate;
     private LocalDate dueDate;
     private boolean returned;
 
     public Loan(Book book, User user) {
         this.book = book;
         this.user = user;
+        this.startDate = LocalDate.now();
         this.dueDate = LocalDate.now().plusDays(5);
         this.returned = false;
     }
@@ -37,6 +39,11 @@ public class Loan implements Serializable {
     public String getDueDateString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return dueDate.format(formatter);
+    }
+
+    public String getStartDateString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return startDate.format(formatter);
     }
 
     public void returnBook() {
