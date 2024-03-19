@@ -20,7 +20,7 @@ public class DummyData {
         // Προσθήκη βιβλίων
         for (int i = 0; i < 10; i++) {
             libraryManager.addBook("Title " + i, "Author " + i, "Publisher " + i, "ISBN" + i,
-                    i % 4, "Category " + (i % 4), 5);
+                    i % 4, "Category" + (i % 4), 5);
         }
 
         // Προσθήκη χρηστών

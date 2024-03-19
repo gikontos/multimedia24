@@ -60,12 +60,16 @@ public class LibraryManager implements Serializable {
 
     public void deleteBook(Book book) {
         Iterator<Loan> loanIterator = loans.iterator();
+        List<Loan> loansToTerminate = new ArrayList<>();
         while (loanIterator.hasNext()) {
             Loan loan = loanIterator.next();
             if (loan.getBook().getTitle().equals(book.getTitle())) {
                 loan.returnBook();
-                this.terminateLoan(loan);
+                loansToTerminate.add(loan);
             }
+        }
+        for (Loan loan : loansToTerminate) {
+            this.terminateLoan(loan);
         }
         if (books != null) {
             books.remove(book);
@@ -103,6 +107,18 @@ public class LibraryManager implements Serializable {
     }
 
     public void deleteCategory(Category category) {
+        List<Book> booksToDelete = new ArrayList<>();
+
+        for (Book book : books) {
+            if (book.getCategory().equals(category.getCategory())) {
+                booksToDelete.add(book);
+            }
+        }
+
+        for (Book book : booksToDelete) {
+            deleteBook(book);
+        }
+
         if (categories != null) {
             categories.remove(category);
         }
@@ -138,12 +154,16 @@ public class LibraryManager implements Serializable {
 
     public void deleteUser(User user) {
         Iterator<Loan> loanIterator = loans.iterator();
+        List<Loan> loansToTerminate = new ArrayList<>();
         while (loanIterator.hasNext()) {
             Loan loan = loanIterator.next();
             if (loan.getUser().getUsername().equals(user.getUsername())) {
                 loan.returnBook();
-                this.terminateLoan(loan);
+                loansToTerminate.add(loan);
             }
+        }
+        for (Loan loan : loansToTerminate) {
+            this.terminateLoan(loan);
         }
         users.remove(user);
     }
@@ -224,12 +244,8 @@ public class LibraryManager implements Serializable {
         loan.returnBook();
         User user2 = findUserByUsername(user.getUsername());
         user2.returnBorrowedBook(loan, this);
-        Iterator<Loan> loanIterator = loans.iterator();
-        while (loanIterator.hasNext()) {
-            Loan currentLoan = loanIterator.next();
-            if (currentLoan.equals(loan)) {
-                loanIterator.remove();
-            }
+        if (loans != null) {
+            loans.remove(loan);
         }
     }
 

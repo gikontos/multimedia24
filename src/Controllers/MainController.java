@@ -188,7 +188,7 @@ public class MainController {
                 return new SimpleStringProperty(category);
             }
         });
-        categoryDelete.setCellFactory(param -> new CategoryDeleteCell());
+        categoryDelete.setCellFactory(param -> new CategoryDeleteCell(libraryManager, stage));
         categoryUpdate.setCellFactory(param -> new CategoryUpdateCell());
         List<Category> categories = libraryManager.getAllCategories();
         categoryTableView.getItems().addAll(categories);
