@@ -43,7 +43,7 @@ public class pageChanger {
             }
             if (file.equals("userPage")) {
                 controller.setUser(user);
-                controller.initializeUserLoansTable();
+                controller.initializeUserLoansTable(manager);
             }
             stage.setScene(scene);
             stage.show();

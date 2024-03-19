@@ -249,6 +249,18 @@ public class LibraryManager implements Serializable {
         }
     }
 
+    public Loan findOpenLoans(User user, Book book) {
+        Loan openLoans = null;
+        for (Loan loan : loans) {
+            if (loan.getBook().getTitle().equals(
+                    book.getTitle()) && loan.getUser().getUsername().equals(user.getUsername())) {
+                openLoans = loan;
+                break;
+            }
+        }
+        return openLoans;
+    }
+
     // Methods for users
     public void userAddRating(Book book, User user, int r) {
         if (user.canComment(book)) {

@@ -35,6 +35,7 @@ import src.uiComponents.userLoanRating;
 import src.uiComponents.userUpdateCell;
 import src.users.LibraryManager;
 import src.users.User;
+import src.Start;
 import src.Controllers.helpers.*;
 import java.io.IOException;
 
@@ -223,7 +224,7 @@ public class MainController {
     }
 
     @FXML
-    public void initializeUserLoansTable() {
+    public void initializeUserLoansTable(LibraryManager manager) {
         userTitle.setCellValueFactory(new Callback<>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Book, String> cellData) {
@@ -236,6 +237,30 @@ public class MainController {
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Book, String> cellData) {
                 String isbn = cellData.getValue().getIsbn();
                 return new SimpleStringProperty(isbn);
+            }
+        });
+        userDate.setCellValueFactory(new Callback<>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Book, String> cellData) {
+                Book book = cellData.getValue();
+                Loan loan = manager.findOpenLoans(user, book);
+                if (loan != null) {
+                    String date = loan.getDueDateString();
+                    return new SimpleStringProperty(date);
+                }
+                return null;
+            }
+        });
+        userStartDate.setCellValueFactory(new Callback<>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Book, String> cellData) {
+                Book book = cellData.getValue();
+                Loan loan = manager.findOpenLoans(user, book);
+                if (loan != null) {
+                    String date = loan.getStartDateString();
+                    return new SimpleStringProperty(date);
+                }
+                return null;
             }
         });
         userComment.setCellFactory(param -> new userLoanComment());
