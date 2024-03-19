@@ -587,7 +587,7 @@ public class MainController {
             }
         });
         List<Book> books = libraryManager.searchBooks(title, author, number);
-        resultsReserve.setCellFactory(param -> new resultsReserveCell());
+        resultsReserve.setCellFactory(param -> new resultsReserveCell(libraryManager, user));
         resultsViewInfo.setCellFactory(param -> new resultsViewInfoCell(libraryManager, stage, user));
         resultsTable.getItems().addAll(books);
     }

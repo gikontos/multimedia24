@@ -228,13 +228,15 @@ public class LibraryManager implements Serializable {
         return loans;
     }
 
-    public void addLoan(Book book, User user) {
+    public boolean addLoan(Book book, User user) {
         if (user.canBorrowBook() && book.canloanBook()) {
             user.Borrowed(book);
             book.loanedBook();
             Loan loan = new Loan(book, user);
             loans.add(loan);
+            return true;
         }
+        return false;
     }
 
     public void terminateLoan(Loan loan) {
