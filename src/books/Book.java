@@ -123,7 +123,7 @@ public class Book implements Serializable {
                 "Publisher: " + publisher + "\n" +
                 "ISBN: " + ISBN + "\n" +
                 "Publication Year: " + publicationYear + "\n" +
-                "Category: " + category + "\n" +
+                "Category: " + category.getCategory() + "\n" +
                 "Number of Copies: " + numberOfCopies + "\n" +
                 "Rating: " + rating + "\n" +
                 "Comments: " + comments.toString();

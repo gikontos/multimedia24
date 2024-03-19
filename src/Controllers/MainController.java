@@ -11,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TableColumn;
@@ -367,7 +368,7 @@ public class MainController {
         pageChanger page = new pageChanger(stage);
         String username = usernameField.getText();
         String password = passwordField.getText();
-        if (username.equals("m") && password.equals("m")) {
+        if (username.equals("medialab") && password.equals("medialab_2024")) {
             page.changePage("adminPage", libraryManager, null);
         } else if (libraryManager.isValidCredentials(username, password)) {
             User user1 = libraryManager.findUser(username);
@@ -587,7 +588,15 @@ public class MainController {
         });
         List<Book> books = libraryManager.searchBooks(title, author, number);
         resultsReserve.setCellFactory(param -> new resultsReserveCell());
-        resultsViewInfo.setCellFactory(param -> new resultsViewInfoCell());
+        resultsViewInfo.setCellFactory(param -> new resultsViewInfoCell(libraryManager, stage, user));
         resultsTable.getItems().addAll(books);
+    }
+
+    @FXML
+    private Label bookInfoText;
+
+    @FXML
+    public void initializeBookInfo(Book book) {
+        bookInfoText.setText(book.viewInfo());
     }
 }
