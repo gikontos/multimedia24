@@ -64,7 +64,7 @@ public class LibraryManager implements Serializable {
             Loan loan = loanIterator.next();
             if (loan.getBook().getTitle().equals(book.getTitle())) {
                 loan.returnBook();
-                loanIterator.remove();
+                this.terminateLoan(loan);
             }
         }
         if (books != null) {
@@ -142,7 +142,7 @@ public class LibraryManager implements Serializable {
             Loan loan = loanIterator.next();
             if (loan.getUser().getUsername().equals(user.getUsername())) {
                 loan.returnBook();
-                loanIterator.remove();
+                this.terminateLoan(loan);
             }
         }
         users.remove(user);
@@ -224,8 +224,12 @@ public class LibraryManager implements Serializable {
         loan.returnBook();
         User user2 = findUserByUsername(user.getUsername());
         user2.returnBorrowedBook(loan, this);
-        if (loans != null) {
-            loans.remove(loan);
+        Iterator<Loan> loanIterator = loans.iterator();
+        while (loanIterator.hasNext()) {
+            Loan currentLoan = loanIterator.next();
+            if (currentLoan.equals(loan)) {
+                loanIterator.remove();
+            }
         }
     }
 
